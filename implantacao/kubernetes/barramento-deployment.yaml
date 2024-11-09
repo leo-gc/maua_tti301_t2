@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tti301-barramento-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tti301-barramento
+  template:
+    metadata:
+      labels:
+        app: tti301-barramento
+    spec:
+      containers:
+        - name: tti301-barramento
+          image: leogchin/tti301-barramento:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tti301-barramento-service
+spec:
+  selector:
+    app: tti301-barramento
+  type: ClusterIP
+  ports:
+    - name: tti301-barramento
+      protocol: TCP
+      port: 10000
+      targetPort: 10000
